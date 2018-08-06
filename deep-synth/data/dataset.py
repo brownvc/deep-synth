@@ -197,6 +197,7 @@ class DatasetToJSON(DatasetAction):
     """
     Converts the dataset back to the original json format
     """
+    object_data = ObjectData()
     def __init__(self, dest):
         data_dir = utils.get_data_root_dir()
         self.dest_dir = f"{data_dir}/{dest}/json"
@@ -241,10 +242,10 @@ class DatasetToJSON(DatasetAction):
                             t = np.dot(t_reflec, t)
                             node.transform = list(t.flatten())
                         #Same for the special cases
-                        if node.modelId in ["146", "142", "106"]:
+                        alignment_matrix = DatasetToJSON.object_data.get_alignment_matrix(node.modelId)
+                        if alignment_matrix is not None:
                             t = np.asarray(node.transform).reshape(4,4)
-                            d = ObjectData()
-                            t = np.dot(d.get_alignment_matrix(node.modelId), t)
+                            t = np.dot(alignment_matrix, t)
                             node.transform = list(t.flatten())
                     cur_level["nodes"].append(node.__dict__)
                     room.nodeIndices.append(node.id.split("_")[1])
