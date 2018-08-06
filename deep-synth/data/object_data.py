@@ -139,7 +139,3 @@ class ObjectData():
         model_id = model_id.replace("_mirror","")
         return [a for a in self.model_to_data[model_id][8].split(",")]
 
-if __name__ == "__main__":
-    b = ObjectData()
-    #print(b.get_front("40"))
-    #print(b.get_setIds("s__2240"))

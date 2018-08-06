@@ -267,20 +267,3 @@ class RenderedComposite():
             raise NotImplementedError
 
         return composite
-
-
-if __name__ == "__main__":
-    from . import ProjectionGenerator
-    import scipy.misc as m
-    pgen = ProjectionGenerator()
-    a = RenderedScene(5, load_objects=True, data_dir="dining_final")
-    c = a.create_composite()
-
-    for node in a.object_nodes:
-        c.add_node(node)
-    
-    img = c.get_composite()
-    img = img[7].numpy()
-    img = m.toimage(img, cmin=0, cmax=1)
-    img.show()
-

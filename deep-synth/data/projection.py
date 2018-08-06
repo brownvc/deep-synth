@@ -86,14 +86,3 @@ class Projection():
         bottom_left = np.dot(bottom_left, self.t_3d)
         top_right = np.dot(top_right, self.t_3d)
         return (bottom_left[0], top_right[0], bottom_left[2], top_right[2], bottom_left[1], top_right[1])
-
-if __name__ == "__main__":
-    pass
-    #from . import *
-    #a = ProjectionGenerator()
-    #house = House(include_support_information=False, file_dir="/home/kai/data/3d-scene/3d-scene/data/bedroom_final/json/4200.json")
-    #room = house.rooms[0]
-    #p = a.get_projection(room)
-    #print(p.to_2d())
-    #print(p.to_3d())
-    #print(p.get_ortho_parameters())

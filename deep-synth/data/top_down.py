@@ -179,12 +179,3 @@ class TopDownView():
         """
         triangles = np.asarray(list(o.get_triangles()), dtype=np.float32)
         return TopDownView.render_object_full_size_helper(triangles, size)
-
-if __name__ == "__main__":
-    from .house import House
-    h = House(id_="51515da17cd4b575775cea4f5546737a")
-    r = h.rooms[0]
-    renderer = TopDownView()
-    img = renderer.render(r)[0]
-    img = m.toimage(img, cmin=0, cmax=1)
-    img.show()

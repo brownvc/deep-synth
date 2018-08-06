@@ -224,9 +224,3 @@ class Node():
 
     def isRoom(self):
         return self.type == "Room"
-
-if __name__ == "__main__":
-    a = House(id_ = "f53c0878c4db848bfa43163473b74245")
-    for room in a.rooms:
-        if room.id == "0_7":
-            print(room.__dict__)
