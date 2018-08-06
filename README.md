@@ -118,3 +118,18 @@ There are three ways you can view a synthesized scene:
 - Use the Scene Viewer to view the generated .json files. We will setup a instance of that later.
 
 - Use Scene Toolkit to convert the .json files to standard mesh files, which could then be loaded/rendered by various softwares. We will update the instructions on that later.
+
+## Citation
+Please cite the paper if you use this code for research:
+```
+@article{wang2018deep,
+  title={Deep convolutional priors for indoor scene synthesis},
+  author={Wang, Kai and Savva, Manolis and Chang, Angel X and Ritchie, Daniel},
+  journal={ACM Transactions on Graphics (TOG)},
+  volume={37},
+  number={4},
+  pages={70},
+  year={2018},
+  publisher={ACM}
+}
+```
