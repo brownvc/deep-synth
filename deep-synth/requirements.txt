@@ -1,0 +1,7 @@
+matplotlib
+numpy
+numba
+pybullet>=1.7.5
+pyquaternion
+scikit-learn
+scipy
