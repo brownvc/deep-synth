@@ -1,7 +1,7 @@
 # Deep Convolutional Priors for Indoor Scene Synthesis
 PyTorch code for our SIGGRAPH Paper [Deep Convolutional Priors for Indoor Scene Synthesis](https://kwang-ether.github.io/pdf/deepsynth.pdf)
 
-Requires PyTorch 0.4 to run, additional python library requirements could be found at [/scene-synth/requirements.txt](/scene-synth/requirements.txt). Run
+Requires PyTorch 0.4 to run, additional python library requirements could be found at [/deep-synth/requirements.txt](/deep-synth/requirements.txt). Run
 ```bash
 pip install -r requirements.txt
 ```
@@ -20,9 +20,9 @@ python script.py --version v1 --type room
 ```
 to download the room geometry in obj format, extract that as well.
 
-Now, create a directory named `suncg_data` under the data root directory. This defaults to `/scene-synth/data`, but could be changed by exporting an environment variable named `SCENESYNTH_DATA_PATH`. Move the four directories downloaded previously to `suncg_data`.
+Now, create a directory named `suncg_data` under the data root directory. This defaults to `/deep-synth/data`, but could be changed by exporting an environment variable named `SCENESYNTH_DATA_PATH`. Move the four directories downloaded previously to `suncg_data`.
 
-Now, navigate to `/scene-synth`, and run
+Now, navigate to `/deep-synth`, and run
 ```bash
 python create_data.py
 ```
@@ -84,7 +84,7 @@ to train in the same way as what we did. Note that we actually did not include c
 Instance-orientation predictor should be usable after 300 epochs of training.
 
 ## Test-time Synthesis
-[scene_synth.py](/scene-synth/scene_synth.py) contains the code used for test time synthesis. [batch_synth.py](/scene-synth/batch_synth.py) is a simple script that calls the synthesis code. To use it, run
+[scene_synth.py](/deep-synth/scene_synth.py) contains the code used for test time synthesis. [batch_synth.py](/deep-synth/batch_synth.py) is a simple script that calls the synthesis code. To use it, run
 ```bash
 python batch_synth.py --save-dir save_destination --data-dir dataset_location --model-dir model_location --continue-epoch epoch_number --location_epoch epoch_number --rotation_epoch epoch_number --start start_room_index --end end_room_index
 ```
