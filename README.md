@@ -1,7 +1,7 @@
 # Deep Convolutional Priors for Indoor Scene Synthesis
 PyTorch code for our SIGGRAPH Paper [Deep Convolutional Priors for Indoor Scene Synthesis](https://kwang-ether.github.io/pdf/deepsynth.pdf)
 
-Requires PyTorch 0.4 to run, additional python library requirements could be found at [/deep-synth/requirements.txt](/deep-synth/requirements.txt). Run
+Requires PyTorch 0.4 to run. Also assumes CUDA is installed and a CUDA-compatible GPU is available. Requires Python>=3.6 since some new features, notably f-strings, are used throught the codebase. Additional python library requirements could be found at [/deep-synth/requirements.txt](/deep-synth/requirements.txt). Run
 ```bash
 pip install -r requirements.txt
 ```
