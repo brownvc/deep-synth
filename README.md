@@ -83,6 +83,10 @@ to train in the same way as what we did. Note that we actually did not include c
 
 Instance-orientation predictor should be usable after 300 epochs of training.
 
+### 4.Pre-trained models
+
+We provide pre-trained models for the three types of rooms used in the paper. The models could be found [here](https://drive.google.com/drive/folders/1QOmio0teSpc9ZrnM4P50Gsxc7y8glR3l?usp=sharing). Trained and tested on PyTorch 0.4.1
+
 ## Test-time Synthesis
 [scene_synth.py](/deep-synth/scene_synth.py) contains the code used for test time synthesis. [batch_synth.py](/deep-synth/batch_synth.py) is a simple script that calls the synthesis code. To use it, run
 ```bash
