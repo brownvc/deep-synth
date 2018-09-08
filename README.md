@@ -126,13 +126,43 @@ There are three ways you can view a synthesized scene:
 - Use the SSTK to render the rooms, or converting them to meshes that could be rendered by other softwares. See below for instructions.
 
 ## Exporting and rendering scene meshes using SSTK
+First download and build the [SSTK](https://github.com/smartscenes/sstk) library (use the `v0.7.0` branch of the code). Then, you can run a variety of scripts:
 
-First download and build the [SSTK](https://github.com/smartscenes/sstk) library (use the `v0.7.0` branch of the code). Then, you can run the following scripts:
+```bash
+#!/usr/bin/env bash
 
-- To export a textured OBJ mesh from a generated .json file: `${SSTK}/ssc/suncg/export-suncg-mesh.js --config_file ${SSTK}/ssc/config/render_suncg.json --texture_path ../texture/ --input ${INPUT_JSON}` where `${SSTK}` points to the base directory of the SSTK library, `${INPUT_JSON}` is the input .json file, and `--texture_path` specifies the relative path for textures (from the intended location of the output .obj file)
-- To render a generated .json file: ${SSTK}/ssc/render-file.js --config_file ${SSTK}/ssc/config/render_suncg.json --assetType scene --material_type phong --input ${INPUT_JSON}
-- To render a category-colored image: ${SSTK}/ssc/render-file.js --config_file ${SSTK}/ssc/config/render_suncg.json --assetType scene --material_type phong --color_by category --use_ambient_occlusion --ambient_occlusion_type edl --input ${INPUT_JSON}
-- To render a single off-white neutral color image: ${SSTK}/ssc/render-file.js --config_file ${SSTK}/ssc/config/render_suncg.json --assetType scene --color_by color --color '#fef9ed' --material_type phong --use_ambient_occlusion --ambient_occlusion_type edl --input ${INPUT_JSON}
+SSTK="${HOME}/code/sstk/"  # base directory of the SSTK library
+CFG="${SSTK}/ssc/config/render_suncg.json"  # configuration file
+INPUT_JSON="${HOME}/Dropbox/fuzzybox/1.json"  # input .json file
+
+# To export a textured OBJ mesh from a generated .json file (note: `--texture_path` specifies the relative path for textures from the intended location of the output .obj file):
+${SSTK}/ssc/suncg/export-suncg-mesh.js --config_file ${CFG} --texture_path ../texture/ --input ${INPUT_JSON}
+
+# Render regular colors
+${SSTK}/ssc/render-file.js --config_file ${CFG} --assetType scene --material_type phong --input ${INPUT_JSON}
+
+# Render category colors
+${SSTK}/ssc/render-file.js --config_file ${CFG} --assetType scene --material_type phong --color_by category --use_ambient_occlusion --ambient_occlusion_type edl --input ${INPUT_JSON}
+
+# Render instance ids
+${SSTK}/ssc/render-file.js --config_file ${CFG} --assetType scene --material_type phong --color_by objectId --use_ambient_occlusion --ambient_occlusion_type edl --input ${INPUT_JSON}
+
+# Render neutral-colored offwhite
+${SSTK}/ssc/render-file.js --config_file ${CFG} --assetType scene --color_by color --color '#fef9ed' --material_type phong --use_ambient_occlusion --ambient_occlusion_type edl --input ${INPUT_JSON}
+
+# If you want to render from specific camera view (embedded in generated .json files) add the argument --use_scene_camera orthographic
+# This assumes the .json file contains a block similar to the example below:
+# "camera": {
+#   "orthographic":  {
+#     "left": 29.300252109682454, 
+#     "right": 35.35025210968245, 
+#     "bottom": 33.97043045231174, 
+#     "top": 40.020430452311736, 
+#     "far": 2.199999939650297, 
+#     "near": 6.749999939650297
+#   }
+# }
+```
 
 ## Running the Baseline Experiments
 ### Running the occurence baseline
