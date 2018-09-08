@@ -390,7 +390,9 @@ class RelativeObservationsDatabase:
             nodes = [n for n in room.nodes if n.type == 'Object' and n.valid]
             for o in nodes:
                 self._objects.add_object(o)
-            room_relative_observations = self._objects.get_relative_observations(room.id, ignore_categories=list())
+            room_relative_observations = self._objects.get_relative_observations(room.id, 
+                filter_ref_obj=None,
+                ignore_categories=list())
             relative_observations.update(room_relative_observations)
 
             return relative_observations

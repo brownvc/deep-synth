@@ -27,7 +27,7 @@ class SceneSynthOccurenceBaseline(SceneSynth):
         counts_dir = f"{self.model_dir}/categoryCounts_epoch_{epoch}.pt"
         dataset = CategoryCountsDataset(
             data_root_dir = self.data_root_dir,
-            data_dir = self.data_dir,
+            data_dir = self.data_dir_relative,
             scene_indices = (0, train_size),
         )
 

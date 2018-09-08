@@ -10,7 +10,7 @@ import numpy as np
 
 from data import House, DatasetToJSON
 from math_utils import Transform
-from priors.observations import ObjectCollection
+from priors.observations import ObjectCollection, ObservationCategory, RelativeObservation
 from priors.pairwise import PairwiseArrangementPrior  # needed for pickle laod
 from pyquaternion import Quaternion
 from random import random

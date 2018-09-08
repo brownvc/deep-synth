@@ -71,7 +71,9 @@ to train in the same way as what we did. In addition to the parameters outlined 
 
 - `--progressive-p`: If set, increase p_auxiliary gradually from 0 to 0.95. Overrides `--p-auxiliary`.
 
-Location-category predictor should be usable after 300 epochs. The training process for this is quite unstable, so diffrent epochs might behave differently, especially after test-time tempering. Experiment with them if you like.
+Location-category predictor should be usable after 300 epochs. The training process for this is quite unstable, so diffrent epochs might behave differently, especially after test-time tempering. Experiment with them if you like. 
+
+If `--progressive-p` is set, validation loss will increase and accuracy will decrease as the percentage of auxiliary categories increases. This behavior is normal since we are not really training a classifier here.
 
 ### 3.Training the instance-orientation predictor (Section 5.3)
 
@@ -121,7 +123,37 @@ There are three ways you can view a synthesized scene:
 
 - Use the Scene Viewer to view the generated .json files. We will setup a instance of that later.
 
-- Use Scene Toolkit to convert the .json files to standard mesh files, which could then be loaded/rendered by various softwares. We will update the instructions on that later.
+- Use the SSTK to render the rooms, or converting them to meshes that could be rendered by other softwares. See below for instructions.
+
+## Exporting and rendering scene meshes using SSTK
+
+First download and build the [SSTK](https://github.com/smartscenes/sstk) library (use the `v0.7.0` branch of the code). Then, you can run the following scripts:
+
+- To export a textured OBJ mesh from a generated .json file: `${SSTK}/ssc/suncg/export-suncg-mesh.js --config_file ${SSTK}/ssc/config/render_suncg.json --texture_path ../texture/ --input ${INPUT_JSON}` where `${SSTK}` points to the base directory of the SSTK library, `${INPUT_JSON}` is the input .json file, and `--texture_path` specifies the relative path for textures (from the intended location of the output .obj file)
+- To render a generated .json file: ${SSTK}/ssc/render-file.js --config_file ${SSTK}/ssc/config/render_suncg.json --assetType scene --material_type phong --input ${INPUT_JSON}
+- To render a category-colored image: ${SSTK}/ssc/render-file.js --config_file ${SSTK}/ssc/config/render_suncg.json --assetType scene --material_type phong --color_by category --use_ambient_occlusion --ambient_occlusion_type edl --input ${INPUT_JSON}
+- To render a single off-white neutral color image: ${SSTK}/ssc/render-file.js --config_file ${SSTK}/ssc/config/render_suncg.json --assetType scene --color_by color --color '#fef9ed' --material_type phong --use_ambient_occlusion --ambient_occlusion_type edl --input ${INPUT_JSON}
+
+## Running the Baseline Experiments
+### Running the occurence baseline
+To run the occurence baseline, first run `categoryCounts_train.py` to train the NADE model, the arguments are explained above. Copy the final saved model to the same directory as other models, and then call SceneSynthOccurenceBasline from `scene_synth_occurence_baseline.py` in similar ways outlined in `batch_synth.py`, with two additional parameters: the first is the epoch of the NADE model, and the second is the size of the training set used to train the NADE.
+
+### Running the pairwise arrangement baseline
+
+To run the arrangement baseline, first generate pairwise object arrangement priors from the desired training set of scenes using the following commands (example uses `office` dataset):
+```bash
+python -m priors.observations --task collect --input data/office/json --priors_dir data/office/priors
+python -m priors.observations --task save_pkl --input data/office/priors --priors_dir data/office/priors --house_dir data/office/json
+python -m priors.pairwise --task fit --priors_dir data/office/priors
+```
+You can then run the arrangement baseline, giving an input scene `.json` file (to specify the set of objects that are to be iteratively placed into the empty room). The example uses the first training scene for illustration:
+```bash
+python -m priors.arrangement --priors_dir data/office/priors --input data/office/json/0.json --output_dir arrangement_baseline_test
+```
+
+### Running the arrangement comparison
+
+To use our code to rearrange the rooms (as what we did in the arrangement baseline comparison), call SceneSynthArrangementBaseline from `scene_synth_arrangement_baseline.py` in exactly the same way as outlined in `batch_synth.py`.
 
 ## Citation
 Please cite the paper if you use this code for research:

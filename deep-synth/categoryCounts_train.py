@@ -14,11 +14,11 @@ Train the baseline NADE that samples object category counts for a scene
 '''
 
 parser = argparse.ArgumentParser(description='Occurence Baseline')
-parser.add_argument('--data-folder', type=str, default="bedroom_final", metavar='S')
+parser.add_argument('--data-dir', type=str, default="bedroom", metavar='S')
 parser.add_argument('--num-workers', type=int, default=6, metavar='N')
 parser.add_argument('--last-epoch', type=int, default=-1, metavar='N')
 parser.add_argument('--train-size', type=int, default=6400, metavar='N')
-parser.add_argument('--save-dir', type=str, default="bedroom", metavar='S')
+parser.add_argument('--save-dir', type=str, default="train/bedroom", metavar='S')
 parser.add_argument('--lr', type=float, default=0.001, metavar='N')
 args = parser.parse_args()
 
@@ -32,14 +32,14 @@ def LOG(msg):
     logfile.flush()
 
 start_epoch = 0
-num_epochs = 52
+num_epochs = 50
 learning_rate = args.lr
 batch_size = 128
 
 LOG('Building dataset...')
 train_dataset = CategoryCountsDataset(
-    data_root_dir = utils.get_data_root_dir()
-    data_dir = args.data_folder,
+    data_root_dir = utils.get_data_root_dir(),
+    data_dir = args.data_dir,
     scene_indices = (0, args.train_size),
 )
 

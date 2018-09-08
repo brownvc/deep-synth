@@ -42,7 +42,7 @@ class SynthedRoomArrangementBaseline(SynthedRoom):
         del self.self #Of course I don't care about readability
 
         self.scene = RenderedScene(index = room_id, \
-                                   data_folder = synthesizer.data_folder, \
+                                   data_dir = synthesizer.data_dir_relative, \
                                    data_root_dir = synthesizer.data_root_dir, \
                                    load_objects = True)
 
