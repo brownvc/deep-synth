@@ -1,6 +1,8 @@
 # Deep Convolutional Priors for Indoor Scene Synthesis
 PyTorch code for our SIGGRAPH Paper [Deep Convolutional Priors for Indoor Scene Synthesis](https://kwang-ether.github.io/pdf/deepsynth.pdf)
 
+Fully tested on Ubuntu 18.04 LTS, partially tested on macOS High Sierra. Note: utils.stdout_redirected() will not work with Windows. This is only used to suppress the C++ runtime warnings. You should remove relevant usage of this context manager if you want to run the code on Windows.
+
 Requires PyTorch 0.4 to run. Also assumes CUDA is installed and a CUDA-compatible GPU is available. Requires Python>=3.6 since some new features, notably f-strings, are used throught the codebase. Additional python library requirements could be found at [/deep-synth/requirements.txt](/deep-synth/requirements.txt). Run
 ```bash
 pip install -r requirements.txt
