@@ -10,30 +10,12 @@ pip install -r requirements.txt
 to install.
 
 ## Creating the Dataset
-To create the dataset, first obtain a copy of the [original SUNCG Dataset](http://suncg.cs.princeton.edu/) by signing the agreement form. The dataset should come in the form of a download script, say with the name `script.py`. 
-Run 
-```bash
-python script.py
-```
-to download the newest version of the dataset, extract `house`, `object` and `texture`. Those should be the only files required. 
-In addition, run 
-```bash
-python script.py --version v1 --type room
-```
-to download the room geometry in obj format, extract that as well.
-
-Now, create a directory named `suncg_data` under the data root directory. This defaults to `/deep-synth/data`, but could be changed by exporting an environment variable named `SCENESYNTH_DATA_PATH`. Move the four directories downloaded previously to `suncg_data`.
-
-Now, navigate to `/deep-synth`, and run
-```bash
-python create_data.py
-```
-To convert SUNCG into the format used by our code. This should create several new directories under the data root directory, the only important ones are `bedroom`, `living` and `office`, which are the datasets for the three types of rooms we include in the paper. Since the SUNCG version is newer than what we used, there might be minor discrepancies.
+Current unavailable.
 
 ## Training the Models
 We provide three training scripts: `continue_train.py`, `location_train.py` and `rotation_train.py` that trains each of the three neural network components. The neural networks are described in detail in section 5 of our paper.
 
-Pre-trained models will be released soon.
+Pre-trained models are current unavailable.
 
 ### 1.Training the continue predictor (Section 5.1)
 
@@ -87,10 +69,6 @@ to train in the same way as what we did. Note that we actually did not include c
 
 Instance-orientation predictor should be usable after 300 epochs of training.
 
-### 4.Pre-trained models
-
-We provide pre-trained models for the three types of rooms used in the paper. The models could be found [here](https://drive.google.com/drive/folders/1QOmio0teSpc9ZrnM4P50Gsxc7y8glR3l?usp=sharing). Trained and tested on PyTorch 0.4.1
-
 ## Test-time Synthesis
 [scene_synth.py](/deep-synth/scene_synth.py) contains the code used for test time synthesis. [batch_synth.py](/deep-synth/batch_synth.py) is a simple script that calls the synthesis code. To use it, run
 ```bash
@@ -133,11 +111,8 @@ First download and build the [SSTK](https://github.com/smartscenes/sstk) library
 #!/usr/bin/env bash
 
 SSTK="${HOME}/code/sstk/"  # base directory of the SSTK library
-CFG="${SSTK}/ssc/config/render_suncg.json"  # configuration file
+CFG="${SSTK}/ssc/config/render.json"  # configuration file
 INPUT_JSON="${HOME}/Dropbox/fuzzybox/1.json"  # input .json file
-
-# To export a textured OBJ mesh from a generated .json file (note: `--texture_path` specifies the relative path for textures from the intended location of the output .obj file):
-${SSTK}/ssc/suncg/export-suncg-mesh.js --config_file ${CFG} --texture_path ../texture/ --input ${INPUT_JSON}
 
 # Render regular colors
 ${SSTK}/ssc/render-file.js --config_file ${CFG} --assetType scene --material_type phong --input ${INPUT_JSON}
